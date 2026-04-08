@@ -11,4 +11,4 @@ Similar to proxmox Installation
 
 # Video Reference
 
-(PfSense Insallation Reference)[https://www.youtube.com/watch?v=Et5PPMYuOc8&t=12336s] | 11:49s - 25:27s
+[PfSense Insallation Reference](https://www.youtube.com/watch?v=Et5PPMYuOc8&t=12336s) | 11:49s - 25:27s
