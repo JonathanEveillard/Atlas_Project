@@ -11,7 +11,7 @@ This section includes code snippets, overall tips and tricks and others.
 
 ### Accessing PfSense from LAN
 
-PfSense is usually preconfigured and ready to go. This being said, you shouldn't run in any issues on the get gobut it may happen like it did to myself. Keepings this brief i will explain why this occurs and how you can fix it.
+PfSense is usually preconfigured and ready to go. This being said, you shouldn't run into any issues on the get gobut it may happen like it did to myself. Keepings this brief i will explain why this occurs and how you can fix it.
 
 Your LAN (Local Area Network) and WAN (Wide Area Network) are meant to be used seperately. 
 - WAN | Meant to be used for internet access
