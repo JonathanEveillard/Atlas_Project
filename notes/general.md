@@ -38,8 +38,8 @@ On another hand, subnetting is very important as well. sIf you've changed your `
 - Upstream gateway: It will ask for an upstream gateway. Since this is our LAN, there is none. Just press Enter.
 - IPv6: It will ask about IPv6. We are not configuring that now. Press Enter.
 - DHCP Server: It will ask if you want to enable the DHCP server on LAN. Type y and press Enter.
-- Start of DHCP Range: Enter the starting IP address for devices on your network. A good choice is 10.0.0.100.
-- End of DHCP Range: Enter the ending IP address. A good choice is 10.0.0.200. This gives you 101 available addresses for dynamic clients, leaving plenty of room for static assignments.
+- Start of DHCP Range: Enter the starting IP address for devices on your network. A good choice is 10.0.1.100.
+- End of DHCP Range: Enter the ending IP address. A good choice is 10.0.1.200. This gives you 101 available addresses for dynamic clients, leaving plenty of room for static assignments.
 - Revert to HTTP: It will ask if you want to revert the web GUI protocol to HTTP. Type y. This can make the first connection easier.
 
 Your PfSense WebUI should now be accessible at 10.0.1.x
