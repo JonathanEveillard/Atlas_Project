@@ -17,7 +17,7 @@ Your LAN (Local Area Network) and WAN (Wide Area Network) are meant to be used s
 - WAN | Meant to be used for internet access
 - LAN | Meant to be used for internal access
 
-Unfortunately some bare metal devices do have NIC (Network Interface Controller) Port specific Numbering and Labeling. For example (Protectli)[https://kb.protectli.com/kb/vault-nic-port-information-numbering-and-labeling/] The Vault has it's own numbering which may not match your pfsense labeling at all.
+Unfortunately some bare metal devices do have NIC (Network Interface Controller) Port specific Numbering and Labeling. For example [Protectli](https://kb.protectli.com/kb/vault-nic-port-information-numbering-and-labeling/) The Vault has it's own numbering which may not match your pfsense labeling at all.
 
 
 
