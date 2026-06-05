@@ -1,0 +1,28 @@
+# DOCUMENTED SECTIONS
+
+## SECTION 1 - REQUIREMENTS
+    Will Add description TBD
+
+## SECTION 2 - INSTALLATION
+    Will Add description TBD
+
+## SECTION 3 - PHYSICAL NETWORK CONFIGURATION
+    Will Add description TBD
+
+## SECTION 4 - INTRO TO PFSENSE & NETWORK CONFIGURATION
+    Will Add description TBD
+
+## SECTION 5 - INTRO TO PROXMOX & VMS
+    Will Add description TBD
+
+## SECTION 6 - SETTING YOUR FIRST VM THROUGH PROXMOX
+    Will Add description TBD
+
+## SECTION 7 (OPTIONAL) - SETTING UP 2 ENDPOINT PROXMOX CLUSTER
+    Will Add description TBD
+
+## SECTION 8 - INTRO TO ACTIVE DIRECTORY
+    Will Add description TBD
+
+## SECTION TBD - TBD
+    TBD
