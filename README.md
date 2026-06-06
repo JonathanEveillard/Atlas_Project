@@ -1,4 +1,4 @@
-## Official Start Date: Febuary 21 2026 | Last updated: Friday June 5th 2026
+## Official Start Date: Febuary 21 2026 | Last updated: Friday June 6th 2026
 ![alt](./logo/Atlas.png)
 
 Simplle self preseverd infrastructure as code, enabling user to run multiple services in a secured environment. Documentation is provided below, updated regularly.
