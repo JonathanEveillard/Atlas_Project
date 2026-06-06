@@ -8,7 +8,7 @@ For the Proxmox this section will be broken down into 2 sections, REQUIRED and O
 - You will need a USB Stick (Preferably USB3.0)
 - Go to the official Proxmox [Download Page](https://www.pfsense.org/download/)
 ![alt](../../images/Proxmox_Install.png)
-- Install [rufus](https://rufus.ie/en/) to install/Flash PfSense Iso Image unto your USB Stick ![alt](../../images/PfSense_Install.png) 
+- Install [rufus](https://rufus.ie/en/) to install/Flash Proxmox Iso Image unto your USB Stick ![alt](../../images/Rufus_Install.png.png) 
 - Go through the Installation Process [0:00 - 3:00](https://www.youtube.com/watch?v=lFzWDJcRsqo)
 
 ### Optional
@@ -25,7 +25,7 @@ I wrote a document a little while back ago which may help you disable T2 Secure 
 - You will need a USB Stick (Preferably USB3.0)
 - Go to the official PfSense [Download Page](https://www.pfsense.org/download/)
 ![alt](../../images/PfSense_Install.png)
-- Install [rufus](https://rufus.ie/en/) to install/Flash PfSense Iso Image unto your USB Stick ![alt](../../images/PfSense_Install.png) 
+- Install [rufus](https://rufus.ie/en/) to install/Flash PfSense Iso Image unto your USB Stick
 - Go through the Installation Process | Louis Rossman has a good guide from [0:00 - 25:27](https://www.youtube.com/watch?v=Et5PPMYuOc8)
 
 
