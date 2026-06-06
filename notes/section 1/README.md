@@ -19,3 +19,4 @@ As for the requirements, there are main components that you will need and there 
 -   Protectli Vault FW4B - 4 Port OR any mini pc with 4 NIC (Baremetal Firewall)
 - TP-Link Omada WIFI 6 AX3000 OR any Mount Wireless Access Point (WAP for Internal communication)
 - TP-Link 8 port TL-SG108E OR any 8 port PoE Switch (Switch for LAN communication)
+- Cat6 Ethernet (Multiple, minimum 8 cables)
