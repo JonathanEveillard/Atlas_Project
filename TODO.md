@@ -1,6 +1,7 @@
 # To do tasks
 
 ## High Priority
+- [ ] Set up Active Directory for multi-user management
 ## Medium Priority
 ## Low Priority
 - [x] Create firewall for network implementation of multiple devices on a seperate vlan
