@@ -25,7 +25,7 @@ I switched the network Interface from `VirtIO` to `VMWare Vmxnet3`. According to
 ### **Home DNS Resolution + AdGuard Deployment Issue**
 
 ---
-
+> Networking Issue
 ## **Description**
 
 I deployed a new DNS stack on a Proxmox LXC container running AdGuard Home on IP [IP Here - Kept Hidden]. The goal was to centralize DNS resolution for the home network and enable local domain resolution for services such as `gitlab.[Hidden Endpoint]`.
