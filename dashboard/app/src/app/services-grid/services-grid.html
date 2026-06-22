@@ -1,0 +1,30 @@
+@if (loading()) {
+  <div class="empty-state">
+    <p>Loading services...</p>
+  </div>
+} @else if (hasError()) {
+  <div class="empty-state error">
+    <p>Could not reach the server. Is Docker running?</p>
+  </div>
+} @else if (services().length === 0) {
+  <div class="empty-state">
+    <p>No services found.</p>
+  </div>
+} @else {
+  <div class="services-grid">
+    @for (service of services(); track service.name) {
+      <div class="service-card" [ngClass]="service.status">
+        <div class="card-header">
+          <span class="status-dot"></span>
+          <span class="service-name">{{ service.name }}</span>
+        </div>
+        <div class="card-footer">
+          @if (service.url) {
+            <a class="service-url" [href]="'https://' + service.url" target="_blank">{{ service.url }}</a>
+          }
+          <span class="status-label">{{ service.status }}</span>
+        </div>
+      </div>
+    }
+  </div>
+}
