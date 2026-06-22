@@ -12,7 +12,7 @@ services:
       - "4000:4000"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /home/admin1/services:/home/admin1/services:ro
+      - /home/USERNAME/services:/home/USERNAME/services:ro
     env_file:
       - .env
     restart: unless-stopped
