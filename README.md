@@ -13,9 +13,9 @@ centralized DNS filtering.
 
 ## Current Infrastructure
 
+```
 Physical Layer
 
-```
 ├── pfSense (bare metal)
 
 │   Firewall | Routing | Tailscale VPN
@@ -41,7 +41,9 @@ Physical Layer
 │
 
 └── PVE2 — Operations Node
+```
 
+```
 Hardware: Mac Mini 2018 | 16GB RAM
 
 ├── AdGuard (LXC) — Network DNS filtering
@@ -62,13 +64,12 @@ Hardware: Mac Mini 2018 | 16GB RAM
 | Reverse Proxy | Nginx | Running |
 | VCS and CI/CD | Self hosted GitLab | Running |
 | File Storage | Nextcloud | Running |
-| Media | Navidrome | Running |
 | Shared Storage | NFS | Running |
 | Orchestration | K3s Kubernetes | In Progress |
 | Monitoring | Prometheus + Grafana + Loki | In Progress |
 | IaC | Terraform | In Progress |
-| Identity | LLDAP | In Progress |
 | Backups | Automated NFS | In Progress |
+| Identity | LLDAP | Planned |
 
 ---
 
@@ -112,7 +113,7 @@ shared NFS storage across pve and pve2*
 
 ### GitLab CI Pipeline  
 ![GitLab CI](./images/gitlab-pipeline.png)
-*Automated pipeline — lint accross monorepo components, Trivy security scan, Secret detection, automatic GitHub mirror on passing build*
+*Automated pipeline — lint across monorepo components, Trivy security scan, Secret detection, automatic GitHub mirror on passing build*
 
 ---
 
@@ -153,9 +154,23 @@ across both Proxmox nodes. Eliminates duplicate ISO
 storage and ensures both nodes provision VMs from
 the same images.
 
+**Proxmox cluster with quorum over independent nodes**
+Configured PVE and PVE2 as a proper Proxmox cluster 
+with quorum enabled rather than two independent nodes. 
+Quorum prevents split brain scenarios — if one node 
+loses connectivity the cluster protects data integrity 
+by stopping new VM operations until quorum is restored.
+
 ---
 
 ## Challenges and Solutions
+
+**Proxmox cluster quorum with two nodes**
+Two node clusters require careful quorum configuration. 
+With only two nodes losing one node loses quorum and 
+halts cluster operations. Mitigated by ensuring PVE2 
+runs only non-critical observability workloads so 
+losing PVE2 does not affect production services on PVE.
 
 **GitLab external URL misconfiguration**
 GitLab returning incorrect clone URLs after initial
@@ -199,7 +214,7 @@ migration.
 
 ---
 
-## Todo
+## Roadmap
 
 ### Phase 1 — Cluster Restructure (Current)
 - [ ] Backup GitLab and Nextcloud to NFS
