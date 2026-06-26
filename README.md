@@ -83,6 +83,12 @@ and PVE2 for VM provisioning.
 
 ## Screenshots
 
+### Network Topology
+![Network Topology](./images/atlas-network-topology.png)
+*Network design — segmented guest and trusted 
+device zones, bare metal pfSense firewall, 
+two node Proxmox cluster*
+
 ### Cluster Health
 ![Cluster Health](./images/proxmox-cluster-health.png)
 *Two node Proxmox cluster — healthy, quorate, 
