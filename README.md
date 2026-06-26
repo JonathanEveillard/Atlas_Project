@@ -13,42 +13,26 @@ centralized DNS filtering.
 
 ## Current Infrastructure
 
+## Current Infrastructure
+
 ```
 Physical Layer
-
 ├── pfSense (bare metal)
-
 │   Firewall | Routing | Tailscale VPN
-
 │   ├── WAP — Wireless access
-
 │   └── Switch — Network switching
-
 │
-
-├── PVE1 — Primary Compute Node
-
+├── PVE — Primary Compute Node
 │   Hardware: i7 | RTX 3060 | 128GB RAM
-
-│   └── Ubuntu Server VM
-
+│   └── VM 102 — Admin Services
 │       ├── GitLab (Docker)
-
 │       ├── Nginx (Docker)
-
-│       └──Nextcloud (Docker)
-
+│       └── Nextcloud (Docker)
 │
-
 └── PVE2 — Operations Node
-```
-
-```
-Hardware: Mac Mini 2018 | 16GB RAM
-
-├── AdGuard (LXC) — Network DNS filtering
-
-└── NFS — Shared ISO storage across cluster
+    Hardware: Mac Mini 2018 | 16GB RAM
+    ├── LXC 120 — AdGuard (DNS filtering)
+    └── NFS — Shared ISO storage
 ```
 
 ---
