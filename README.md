@@ -15,6 +15,7 @@ centralized DNS filtering.
 
 Physical Layer
 
+```
 ├── pfSense (bare metal)
 
 │   Firewall | Routing | Tailscale VPN
@@ -46,6 +47,7 @@ Hardware: Mac Mini 2018 | 16GB RAM
 ├── AdGuard (LXC) — Network DNS filtering
 
 └── NFS — Shared ISO storage across cluster
+```
 
 ---
 
