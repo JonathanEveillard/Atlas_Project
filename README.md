@@ -13,8 +13,6 @@ centralized DNS filtering.
 
 ## Current Infrastructure
 
-## Current Infrastructure
-
 ```
 Physical Layer
 ├── pfSense (bare metal)
