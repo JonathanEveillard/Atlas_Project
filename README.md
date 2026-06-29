@@ -50,6 +50,7 @@ Physical Layer
 | Orchestration | K3s Kubernetes | In Progress |
 | Monitoring | Prometheus + Grafana + Loki | In Progress |
 | IaC | Terraform | In Progress |
+| Automation | Ansible | In Progress |
 | Backups | Automated NFS | In Progress |
 | Identity | LLDAP | Planned |
 
@@ -207,12 +208,15 @@ migration.
 ### Phase 1 — Cluster Restructure (Current)
 - [ ] Backup GitLab and Nextcloud to NFS
 - [ ] Create Admin VM on PVE1 with LLDAP
+- [ ] Write Ansible playbooks for VM provisioning
+- [ ] Write Terraform configs for cluster infrastructure
 - [ ] Create k3s-main control plane VM on PVE1
 - [ ] Create k3s-worker-01 workload VM on PVE1
 - [ ] Create k3s-worker-03 observability VM on PVE2
 
-### Phase 2 — Kubernetes Migration
-- [ ] Install K3s server on k3s-main
+### Phase 2 — Kubernetes Deployment
+- [ ] Deploy K3s across both Proxmox nodes via 
+      Ansible and Terraform
 - [ ] Join k3s-worker-01 and k3s-worker-03 as agents
 - [ ] Migrate GitLab to K3s via Helm
 - [ ] Migrate Nextcloud to K3s
