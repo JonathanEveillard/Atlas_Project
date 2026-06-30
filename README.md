@@ -235,6 +235,8 @@ migration.
 - [ ] GPU passthrough on k3s-worker-02
 - [ ] NVIDIA device plugin for GPU scheduling
 - [ ] WireGuard mesh networking
+- [ ] Zipkin distributed tracing for 
+      cross-service request visibility
 
 ---
 
