@@ -181,6 +181,8 @@ admin services onto dedicated Admin VM and workload
 services onto dedicated Workload VM before K3s
 migration.
 
+
+
 ---
 
 ## What I Learned
@@ -206,8 +208,8 @@ migration.
 ## Roadmap
 
 ### Phase 1 — Cluster Restructure (Current)
-- [ ] Backup GitLab and Nextcloud to NFS
-- [ ] Create Admin VM on PVE1 with LLDAP
+- [x] Backup GitLab and Nextcloud to NFS
+- [x] Create Admin VM on PVE1 with LLDAP
 - [ ] Write Ansible playbooks for VM provisioning
 - [ ] Write Terraform configs for cluster infrastructure
 - [ ] Create k3s-main control plane VM on PVE1

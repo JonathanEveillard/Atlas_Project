@@ -103,6 +103,24 @@ Final expected state confirmed:
 [Hidden IPv4] only (AdGuard Home)
 ```
 
+### **Saturday July 1 2026 @ 4:00am**
+> Wrong data Migration tool (cp/scp vs rSync)
+
+### ***Description***
+Backed up gitlab easily with cp/scp via ip but failed with nextcloud as cp/scp doesn't provide a reliable way of transfering large contents (slow, no resume, no verification, and silent mismatch issues when transfering data).
+
+### ***Solution***
+rSync is by far the best solution for now since it offers a fast, versatile command line utility for copying and synchronizing large files and directories locally and remotely.
+
+### **Saturday July 1 2026 @ 4:43am**
+> Incorrect File System Format
+
+### ***Description***
+In the process of backing up nextcloud, some files were not backed up properply due to improper permissions and ownership.
+
+### ***Solution***
+I formated my external drive (backup) to ext4 to support unix ownership.
+
 ---
 
 ## **Outcome**
