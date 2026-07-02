@@ -1,4 +1,4 @@
-# Atlas — Self Hosted Private Cloud
+# Atlas  Self Hosted Private Cloud
 
 ![Atlas](./logo/Atlas.png)
 
