@@ -103,7 +103,7 @@ Final expected state confirmed:
 [Hidden IPv4] only (AdGuard Home)
 ```
 
-### **Saturday July 1 2026 @ 4:00am**
+### **Wednesday July 1 2026 @ 4:00am**
 > Wrong data Migration tool (cp/scp vs rSync)
 
 ### ***Description***
@@ -112,7 +112,7 @@ Backed up gitlab easily with cp/scp via ip but failed with nextcloud as cp/scp d
 ### ***Solution***
 rSync is by far the best solution for now since it offers a fast, versatile command line utility for copying and synchronizing large files and directories locally and remotely.
 
-### **Saturday July 1 2026 @ 4:43am**
+### **Wednesday July 1 2026 @ 4:43am**
 > Incorrect File System Format
 
 ### ***Description***
@@ -122,6 +122,18 @@ In the process of backing up nextcloud, some files were not backed up properply 
 I formated my external drive (backup) to ext4 to support unix ownership.
 
 ---
+
+### **Saturady July 4 2026 @ 3:50pm**
+> Warning: REMOTE HOST IDENTIFICATION HAS BEEN CHANGED!
+
+### ***Description***
+While creating vm template for cloud-init via proxmox and setting up terraform for
+k3s-cluster provisioning i got an unexpected ssh error that would not allow me to 
+connect to the selected vm. 
+
+
+### ***Solution***
+Because terraform apply/destroy, it would save previous host key into `known_hosts`, meaning that the following build was never recognized properly. Hence the only quick and easy solution was to force the computer to erase the host key from it's memory with `ssh-keygen -f '/root/.ssh/known_hosts' -R '10.0.x.x'`
 
 ## **Outcome**
 
