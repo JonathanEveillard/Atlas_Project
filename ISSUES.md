@@ -135,6 +135,53 @@ connect to the selected vm.
 ### ***Solution***
 Because terraform apply/destroy, it would save previous host key into `known_hosts`, meaning that the following build was never recognized properly. Hence the only quick and easy solution was to force the computer to erase the host key from it's memory with `ssh-keygen -f '/root/.ssh/known_hosts' -R '10.0.x.x'`
 
+### **Saturady July 5 2026 @ 1:40am**
+> Duplicate Resource Blocks | Terraform x Proxmox Issue
+
+### ***Description***
+Multiple Vm were utilizing the identical resource definition `proxmox_virtual_environment_vm "k3s_worker"`. This caused a compile error because terraform requires unique resource definitions.
+
+
+### ***Solution***
+Refactored the naming scheme to use explicit tracking indices: `k3s_worker_1` and `k3s_worker_2`.
+
+### **Saturady July 5 2026 @ 1:30am**
+> Provider mistmatch | Terraform x Proxmox Issue
+
+### ***Description***
+I switch proxmox providers for easier handling, switching from `Telmate/proxmox` plugin to a modern `bpg/proxmox` which has different ways of receiving specific proxmox node (`pve` or `pve2`).
+
+### ***Solution***
+Changed `target_name = "pve"` to `node_name = "pve"` across all three resource definitions to align with the bpg provider specs.
+
+### **Saturady July 5 2026 @ 1:10am**
+> Disk Controller Boot loop | Terraform x Proxmox Issue
+
+### ***Description***
+Once the disk was attached, the cloned VM under `pve2` dropped into an initramfs recovery prompt. The guest Ubuntu Linux kernel lacked the native SCSI controller drivers inside its initial ramdisk to mount the storage block when forced onto a generic SCSI address space.
+
+### ***Solution***
+Updated `main.tf` to provision the disk layout using the native virtio0 interface instead of `scsi0` and ensured the template profile was set to use the standard `virtio-scsi-pci` controller hardware.
+
+### **Saturady July 5 2026 @ 1:20am**
+> Unused Storage| Terraform x Proxmox Issue
+
+### ***Description***
+On `pve2`, the manually imported Ubuntu Cloud Image template `9001` held its storage volume as an detached block `unused0` instead of being actively linked to a drive controller `scsi0`. When Terraform attempted a standard clone, it created a shell configuration missing a bootable root filesystem.
+
+### ***Solution***
+Temporarily flipped the template status file via CLI, mapped the volume explicitly to `scsi0 using qm set 9001 --scsi0 local-lvm:vm-9001-disk-0`, and converted it back to a base template.
+
+### **Saturady July 5 2026 @ 1:00am**
+> Missing Virtual NIC | Terraform x Proxmox Issue
+
+### ***Description***
+While initialization blocks were defined for Cloud-Init networking, no physical network card `network_device` was explicitly defined inside the VM resource scope. Without a network interface map, Cloud-Init could not bind the static IPs to a bridge interface.
+
+### ***Solution***
+Appended a dedicated `network_device { bridge = "vmbr0" }` block to each node definition.
+
+
 ## **Outcome**
 
 * AdGuard Home successfully became the single DNS authority
