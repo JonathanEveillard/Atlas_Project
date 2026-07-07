@@ -210,7 +210,7 @@ migration.
 ### Phase 1 — Cluster Restructure (Current)
 - [x] Backup GitLab and Nextcloud to NFS
 - [x] Create Admin VM on PVE1 with LLDAP
-- [x] Write Ansible playbooks for VM provisioning | Used `k3s-ansible` from `k3s-io`'s [github]("https://github.com/k3s-io/k3s-ansible")
+- [x] Write Ansible playbooks for VM provisioning | Used `k3s-ansible` from `k3s-io`, /k3s-io/k3s-ansible
 - [x] Write Terraform configs for cluster infrastructure
 - [x] Create k3s-main control plane VM on PVE1
 - [x] Create k3s-worker-01 workload VM on PVE1
