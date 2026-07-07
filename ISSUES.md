@@ -182,6 +182,79 @@ While initialization blocks were defined for Cloud-Init networking, no physical 
 Appended a dedicated `network_device { bridge = "vmbr0" }` block to each node definition.
 
 
+### **Saturady July 5 2026 @ 11:35am**
+> Ansible k3s cluster refused remote connection
+
+### ***Description***
+The ansible playbook `site.yml`, containing the config of the k3s details, was receiving a refused connection error message whereas it was attempting to ssh into the single nodes as the default username `root@10.0.x.x`.
+
+### ***Solution***
+Specified `remote_user: Example_NotReal_Username` inside of my ansible playbook.
+
+### **Sunday July 6 2026 @ 9:00pm**
+> wait_for Timeout | Ansible x K3s Issue
+
+### ***Description***
+The `k3s_server` role task "Wait for control plane to be ready" timed out waiting on `api_endpoint:api_port`. The inventory variable `api_endpoint` was set to the Ansible inventory alias (`master_s0`) instead of a resolvable address, so `wait_for` could never open a TCP connection — even though the k3s service itself was healthy.
+
+### ***Solution***
+Set `api_endpoint` in `inventory.yml` to the actual reachable IP of the control-plane node (matching `ansible_host` for the server group), rather than the inventory hostname string.
+
+---
+
+### **Sunday July 6 2026 @ 11:20pm**
+> Single-Node Misconfiguration | Ansible x K3s Issue
+
+### ***Description***
+All three inventory hosts (`master_s0`, `workload_s1`, `observability_s2`) had `ansible_connection: local` set. This caused every Ansible task — including k3s server and agent installs — to execute on the Proxmox host (`pve`) itself rather than on the intended separate VMs, regardless of which inventory entry was being targeted. Confirmed via `journalctl -u k3s`, which showed `hostname-override=pve` on every install attempt.
+
+### ***Solution***
+Removed `ansible_connection: local` from all hosts so Ansible defaults to SSH. Confirmed each VM's real IP via `ip -4 a`, updated `ansible_host` values accordingly, and verified connectivity with `ansible k3s_cluster -i inventory.yml -m ping` before re-running the playbook.
+
+---
+
+### **Sunday July 6 2026 @ 11:45pm**
+> Root Login Disabled | Ansible x K3s Issue
+
+### ***Description***
+SSH connections to the cloud-init-provisioned Ubuntu VMs failed fact-gathering with `Please login as the user "[Selected Username]" rather than the user "root"`, since root SSH login is disabled by default on the Ubuntu cloud image.
+
+### ***Solution***
+Set `ansible_user: [Selected Username]` and kept `ansible_become: true` in `inventory.yml`, allowing Ansible to connect as the `[Selected Username]` user and escalate via sudo for install steps instead of connecting directly as root.
+
+---
+
+### **Monday July 7 2026 @ 1:20am**
+> Broken /tmp Permissions | Ansible x K3s Issue
+
+### ***Description***
+The `prereq` role's "Install Dependent Ubuntu Packages" task failed with `Failed to update apt cache after 5 retries`. Manual `apt update` on the VM revealed the real cause: `Couldn't create temporary file /tmp/apt.conf.XXXXXX for passing config to apt-key`. `/tmp` was found with mode `755`, owned by `[Selected Username]:[Selected Username]`, instead of the standard `1777` root-owned sticky-bit directory every Linux system expects.
+
+### ***Solution***
+Ran `sudo chmod 1777 /tmp` and `sudo chown root:root /tmp` on all three VMs. Added a `pre_tasks` block to the "Cluster prep" play in `site.yml` to enforce correct `/tmp` permissions/ownership automatically on every run, before any role logic depends on it.
+
+---
+
+### **Monday July 7 2026 @ 1:30am**
+> Stale k3s Install / Version Drift | Ansible x K3s Issue
+
+### ***Description***
+The `k3s_server` role's "Run K3s install script" task failed with `No such file or directory: /usr/local/bin/k3s-install.sh`. Investigation showed k3s was already installed on the node (`v1.36.2+k3s1`) — a different version than the one specified in inventory (`k3s_version: v1.33.4+k3s1`) — likely from an earlier partial or manual run. The install script itself was missing, so the role's "always run install script" step had nothing to execute.
+
+### ***Solution***
+Ran `/usr/local/bin/k3s-uninstall.sh` on the affected node to remove the stale install, then re-ran the playbook for a clean install matching the pinned `k3s_version`. Added a `pre_tasks` check in `site.yml` that detects an existing k3s binary, compares its version against `k3s_version`, and warns (rather than auto-removing) if they differ, so version drift is caught before future runs instead of failing deep inside the role.
+
+---
+
+### **Monday July 7 2026 @ 1:50am**
+> ansible.cfg Not Loaded | Provisioning Script Issue
+
+### ***Description***
+The provisioning wrapper script called `ansible-playbook` with absolute paths (and a malformed playbook argument pointing at a directory instead of `site.yml`). Because `ansible-playbook` was not run from within `current_config/`, it never picked up the local `ansible.cfg`, which defines `roles_path` relative to that directory. This caused `the role 'prereq' was not found` even though the role existed and had worked previously when run manually from the correct directory.
+
+### ***Solution***
+Updated the provisioning script to `cd /root/setup/k3s-cluster/ansible/current_config` before invoking `ansible-playbook playbooks/site.yml -i inventory.yml`, using paths relative to that directory so `ansible.cfg` (and its `roles_path`) loads correctly on every run, including from cron or other working directories.
+
 ## **Outcome**
 
 * AdGuard Home successfully became the single DNS authority
