@@ -44,15 +44,11 @@ Dedicated LXC handling Database Engines:
 Proxmox Backup Server + Restic, replicated to NFS
 
 **QA / Policy**
-- Terratest
-- Molecule
 - Checkov
 - Trivy
-- Kubeconform
-- Polaris
 - Uptime Kuma
 
-**AI/ML**
+**AI/ML** (In Progress)
 Dedicated Linux VM with RTX 3060 PCIe passthrough (outside K3s): 
 - Ollama + Open WebUI
 - MLflow
@@ -62,7 +58,7 @@ Dedicated Linux VM with RTX 3060 PCIe passthrough (outside K3s):
 - DVC
 - Langfuse
 
-**Computer Graphics & Computer Vision Development**
+**Computer Graphics & Computer Vision Development** (Will be used for later projects)
 Dedicated Windows VM with RTX 3060 PCIe passthrough (outside K3s): 
 - KodeLife
 - WSL (Debian, Alpine)
