@@ -11,37 +11,65 @@ Infrastructure as code homelab: two node Proxmox cluster running a full self hos
 
 ## Stack
 **Porvisioning & Config**
-Terraform, Ansible, Proxmox LXC
+- Terraform
+- Ansible
+- Proxmox LXC
 
 **Orchestration**
-K3s (k3s-server, control-plane, k3s- workload, k3s-observability), Helm, ArgoCD + Jenkins (GitOps)
+- K3s (k3s-server, control-plane, k3s- workload, k3s-observability)
+- Helm
+- ArgoCD + Jenkins (GitOps)
 
 **Observability**
-Prometheus, Grafana, Loki (Kube prometheus stack via Helm, pinned to Observability Node)
+- Prometheus
+- Grafana + Loki (Kube prometheus stack via Helm, pinned to Observability Node)
 
 **Data & Persistence**
-Dedicated LXC handling Database Engines: MySQL, PostgreSQL, MongoDB
+Dedicated LXC handling Database Engines: 
+- MySQL
+- PostgreSQL
+- MongoDB
 
 **Identity & Access**
-LLDAP (Proxmox user directory + Keycloak backend), Keycloak (SSO across services), Vault (secrets, TOTP-based 2FA via AWS auth mount)
+- LLDAP (Proxmox user directory + Keycloak backend)
+- Keycloak (SSO across services)
+- Vault (secrets, TOTP-based 2FA via AWS auth mount)
 
 **Netowrking**
-Traefik(internal), Adguatd Home(DNS), Cert Manager
+- Traefik(internal)
+- Adguatd Home(DNS)
+- Cert Manager
 
 **Backup**
 Proxmox Backup Server + Restic, replicated to NFS
 
 **QA / Policy**
-Terratest, Molecule, Checkov, Trivy, Kubeconform, Polaris, Uptime Kuma
+- Terratest
+- Molecule
+- Checkov
+- Trivy
+- Kubeconform
+- Polaris
+- Uptime Kuma
 
 **AI/ML**
-Dedicated Linux VM with RTX 3060 PCIe passthrough (outside K3s): Ollama + Open WebUI, MLflow + JupyterHub, Unsloth + Axolotl, DVC, Langfuse
+Dedicated Linux VM with RTX 3060 PCIe passthrough (outside K3s): 
+- Ollama + Open WebUI
+- MLflow
+- JupyterHub
+- Unsloth
+- Axolotl
+- DVC
+- Langfuse
 
 **Computer Graphics & Computer Vision Development**
-Dedicated Windows VM with RTX 3060 PCIe passthrough (outside K3s): KodeLife, WSL (Debian, Alpine)
+Dedicated Windows VM with RTX 3060 PCIe passthrough (outside K3s): 
+- KodeLife
+- WSL (Debian, Alpine)
 
 **Apps & Services**
-Nextcloud, Outline for self built unreleased software
+- Nextcloud
+- Outline for self built unreleased software
 
 **Security**
 Dedicated Vm with Wazuh
@@ -53,14 +81,14 @@ Dedicated Vm with Wazuh
 
 ## Repo Structure
 
-\`\`\`
+```
 .
 ├── terraform/       # infra provisioning
 ├── ansible/         # config management / playbooks
 ├── k8s/             # manifests, Helm values
 ├── argocd/          # GitOps app definitions
 └── docs/            # architecture notes
-\`\`\`
+```
 
 ## What I Learned
 
