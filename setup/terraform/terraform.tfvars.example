@@ -1,0 +1,4 @@
+proxmox_endpoint  = "https://<Proxmox_IP>:8006/"
+proxmox_api_token = "username@proxmoxNode!tokenId=xxxx-xxxx-xxxx-xxxx-xxxx"
+vm_name           = "vm_name"
+template_id       = 8888
