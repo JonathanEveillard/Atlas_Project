@@ -1,4 +1,31 @@
-proxmox_endpoint  = "https://<Proxmox_IP>:8006/"
+proxmox_endpoint  = "https://<Proxmox_IP>:8006/" 
 proxmox_api_token = "username@proxmoxNode!tokenId=xxxx-xxxx-xxxx-xxxx-xxxx"
-vm_name           = "vm_name"
-template_id       = 8888
+
+# VM names
+control_vm = "k3s-control"
+worker_vm1 = "k3s-worker1"
+worker_vm2 = "k3s-worker2"
+
+# Nodes
+node1_name = "pve"
+node2_name = "pve2"
+
+# Templates
+node1_template_id = <Template_Number>
+node2_template_id = <Template_Number>
+
+# Resources
+cores        = 2
+memory       = 2048
+disk_size    = 20
+datastore_id = "local-lvm"
+bridge       = "vmbr0"
+
+# Networking
+ip1_address     = <VM_IP>
+ip2_address     = <VM_IP>
+ip3_address     = <VM_IP>
+gateway_address = <Gateway_IP>
+
+# SSH
+ssh_keys = ["<SSH_PUBLIC_KEY>"]
