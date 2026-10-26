@@ -77,4 +77,3 @@
         sh -s - agent
       args:
         creates: /usr/local/bin/k3s
-root@pve:~/setup/ansible# 
