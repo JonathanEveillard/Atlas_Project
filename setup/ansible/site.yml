@@ -1,0 +1,80 @@
+# Reboot VM to upgrade system dependencies
+- name: Prep nodes
+  hosts: k3s
+  become: true
+  tasks:
+    - name: Wait for SSH
+      ansible.builtin.wait_for_connection:
+        delay: 30
+        timeout: 300
+
+    - name: Wait for cloud-init to finish
+      ansible.builtin.command: cloud-init status --wait
+      register: cloud_init
+      changed_when: false
+      failed_when: cloud_init.rc not in [0, 2]
+      timeout: 600
+
+    - name: Check if a reboot is required
+      ansible.builtin.stat:
+        path: /var/run/reboot-required
+      register: reboot_required
+
+    - name: Reboot if required
+      ansible.builtin.reboot:
+      when: reboot_required.stat.exists
+
+# Install K3s control node 
+- name: Install k3s server
+  hosts: server
+  become: true
+  tasks:
+    - name: Install k3s
+      ansible.builtin.shell: >
+        curl -sfL https://get.k3s.io |
+        INSTALL_K3S_CHANNEL=stable sh -s - server
+        --write-kubeconfig-mode 644
+        --tls-san {{ ansible_host }}
+      args:
+        creates: /usr/local/bin/k3s
+
+    - name: Read node token
+      ansible.builtin.slurp:
+        src: /var/lib/rancher/k3s/server/node-token
+      register: node_token
+
+    - name: Save token as a fact
+      ansible.builtin.set_fact:
+        k3s_token: "{{ node_token.content | b64decode | trim }}"
+
+    - name: Fetch kubeconfig
+      ansible.builtin.fetch:
+        src: /etc/rancher/k3s/k3s.yaml
+        dest: ./kubeconfig
+        flat: true
+
+    - name: Point kubeconfig at the server IP
+      ansible.builtin.replace:
+        path: ./kubeconfig
+        regexp: "127.0.0.1"
+        replace: "{{ ansible_host }}"
+      delegate_to: localhost
+      become: false
+
+# Install K3s Workers
+- name: Join agents
+  hosts: agents
+  become: true
+  vars:
+    server: "{{ groups['server'][0] }}"
+  tasks:
+    - name: Install k3s agent
+      ansible.builtin.shell: >
+        curl -sfL https://get.k3s.io |
+        INSTALL_K3S_CHANNEL=stable
+        K3S_URL=https://{{ hostvars[server].ansible_host }}:6443
+        K3S_TOKEN={{ hostvars[server].k3s_token }}
+        sh -s - agent
+      args:
+        creates: /usr/local/bin/k3s
+root@pve:~/setup/ansible# 

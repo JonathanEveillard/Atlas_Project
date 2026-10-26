@@ -1,0 +1,16 @@
+[server]
+%{ for name, ip in server ~}
+${name} ansible_host=${ip}
+%{ endfor ~}
+
+[agents]
+%{ for name, ip in agents ~}
+${name} ansible_host=${ip}
+%{ endfor ~}
+
+[k3s:children]
+server
+agents
+
+[k3s:vars]
+ansible_user=ubuntu
