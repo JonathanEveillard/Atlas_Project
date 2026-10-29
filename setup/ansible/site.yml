@@ -78,6 +78,7 @@
       args:
         creates: /usr/local/bin/k3s
 
+# Label worker nodes
 - name: Label worker nodes
   hosts: server
   become: true
@@ -89,6 +90,7 @@
       run_once: true
       changed_when: false
 
+# Install ArgoCD
 - name: Install ArgoCD + Helm
   hosts: server
   become: true
@@ -101,4 +103,3 @@
         helm repo add argo https://argoproj.github.io/argo-helm
         helm upgrade --install argocd argo/argo-cd -n argocd --create-namespace
       environment: { KUBECONFIG: /etc/rancher/k3s/k3s.yaml }
-root@pve:~/setup/ansible# 
