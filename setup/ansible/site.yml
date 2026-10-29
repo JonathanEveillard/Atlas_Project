@@ -77,4 +77,28 @@
         sh -s - agent
       args:
         creates: /usr/local/bin/k3s
+
+- name: Label worker nodes
+  hosts: server
+  become: true
+  tasks: 
+    - name: Label worker nodes
+      ansible.builtin.command: >
+        kubectl label node {{ item }} node-role.kubernetes.io/worker=worker --overwrite
+      loop: "{{ groups['agents'] }}"
+      run_once: true
+      changed_when: false
+
+- name: Install ArgoCD + Helm
+  hosts: server
+  become: true
+  tasks:
+    - name: Instal Helm
+      ansible.builtin.shell: curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+      args: { creates: /usr/local/bin/helm }
+    - name: Install ArgoCD
+      ansible.builtin.shell: |
+        helm repo add argo https://argoproj.github.io/argo-helm
+        helm upgrade --install argocd argo/argo-cd -n argocd --create-namespace
+      environment: { KUBECONFIG: /etc/rancher/k3s/k3s.yaml }
 root@pve:~/setup/ansible# 
