@@ -4,4 +4,7 @@
 
 Infrastructure as code homelab: two node Proxmox cluster running a full self hosted platform stack, provisioned and managed declaratively.
 
+## Architecture
+![Atlas_diagram](./Atlas-Page-1.drawio.png)
+
 
